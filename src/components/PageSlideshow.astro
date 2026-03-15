@@ -10,7 +10,7 @@ const { images, alt = "Photography by Richard Lawrie" } = Astro.props;
 <section class="hero" data-slideshow>
   <div class="slides">
     {images.map((src, index) => (
-      <img
+      <image
         src={src}
         alt={alt}
         class={`slide ${index === 0 ? "active" : ""}`}
