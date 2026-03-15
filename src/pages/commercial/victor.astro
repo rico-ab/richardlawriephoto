@@ -1,0 +1,339 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const totalImages = 63;
+
+const images = Array.from({ length: totalImages }, (_, i) =>
+  `/images/victor/victor-${i + 1}.jpg`
+);
+---
+
+<Layout title="Victor Energy – Trehörningen, helikopterdemontering 11 mars 2026 | Richard Lawrie">
+  <section class="client-gallery">
+    <div class="client-text">
+      <h1>Victor Energy – Trehörningen, helikopterdemontering 11 mars 2026</h1>
+
+      <p>
+        Nedan visas lågupplösta förhandsbilder från helikopterdemonteringen vid
+        Trehörningen. Klicka på en bild för att visa den större och använd
+        pilarna för att navigera mellan bilderna.
+      </p>
+
+      <p>
+        Samtliga fotografier är tagna med en Nikon D850 fullformatskamera
+        (45 MP).
+      </p>
+
+      <p>
+        Utöver detta finns cirka sex minuter användbart videomaterial inspelat
+        med en Nikon D800 fullformatskamera, i 1920 × 1080 upplösning,
+        25 bilder per sekund.
+      </p>
+
+      <p>
+        Vissa bilder är också medvetet komponerade med större ytor av negativt
+        utrymme, vilket kan vara användbart vid framtagning av exempelvis
+        årsredovisningar, presentationer eller marknadsmaterial där text eller
+        Victor Energys logotyp kan placeras.
+      </p>
+
+      <p>
+        Helst ser jag att vi kommer överens om en licens där Victor Energy får
+        rätt att använda hela bildserien samt videomaterialet.
+      </p>
+
+      <p>
+        Allt material är © Richard Lawrie tills ett avtal har träffats med
+        Victor Energy.
+      </p>
+    </div>
+
+    <div class="grid">
+      {images.map((src, index) => (
+        <figure>
+          <button
+            class="thumb-button"
+            type="button"
+            data-index={index}
+            data-full={src}
+            aria-label={`Open image ${index + 1}`}
+          >
+            <img src={src} loading="lazy" alt={`Victor Energy ${index + 1}`} />
+          </button>
+          <figcaption>{index + 1}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <dialog class="lightbox" id="lightbox">
+    <button class="lightbox-close" type="button" aria-label="Close preview">×</button>
+
+    <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous image">
+      &#8592;
+    </button>
+
+    <img class="lightbox-image" src="" alt="" />
+
+    <button class="lightbox-nav lightbox-next" type="button" aria-label="Next image">
+      &#8594;
+    </button>
+
+    <div class="lightbox-caption"></div>
+  </dialog>
+</Layout>
+
+<script define:vars={{ images }}>
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImage = lightbox?.querySelector(".lightbox-image");
+  const lightboxCaption = lightbox?.querySelector(".lightbox-caption");
+  const closeButton = lightbox?.querySelector(".lightbox-close");
+  const prevButton = lightbox?.querySelector(".lightbox-prev");
+  const nextButton = lightbox?.querySelector(".lightbox-next");
+  const thumbButtons = document.querySelectorAll(".thumb-button");
+
+  let currentIndex = 0;
+
+  const showImage = (index) => {
+    currentIndex = (index + images.length) % images.length;
+
+    if (lightboxImage && lightboxCaption) {
+      lightboxImage.src = images[currentIndex];
+      lightboxImage.alt = `Victor Energy ${currentIndex + 1}`;
+      lightboxCaption.textContent = `Bild ${currentIndex + 1}`;
+    }
+  };
+
+  thumbButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const index = Number(button.getAttribute("data-index") || "0");
+      showImage(index);
+      lightbox?.showModal();
+    });
+  });
+
+  prevButton?.addEventListener("click", () => {
+    showImage(currentIndex - 1);
+  });
+
+  nextButton?.addEventListener("click", () => {
+    showImage(currentIndex + 1);
+  });
+
+  closeButton?.addEventListener("click", () => {
+    lightbox?.close();
+  });
+
+  lightbox?.addEventListener("click", (event) => {
+    const image = lightbox.querySelector(".lightbox-image");
+    const prev = lightbox.querySelector(".lightbox-prev");
+    const next = lightbox.querySelector(".lightbox-next");
+    const close = lightbox.querySelector(".lightbox-close");
+
+    const clickedInside =
+      image?.contains(event.target) ||
+      prev?.contains(event.target) ||
+      next?.contains(event.target) ||
+      close?.contains(event.target);
+
+    if (!clickedInside) {
+      lightbox.close();
+    }
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (!lightbox?.open) return;
+
+    if (event.key === "ArrowRight") {
+      showImage(currentIndex + 1);
+    }
+
+    if (event.key === "ArrowLeft") {
+      showImage(currentIndex - 1);
+    }
+
+    if (event.key === "Escape") {
+      lightbox.close();
+    }
+  });
+</script>
+
+<style>
+  .client-gallery {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 120px 40px 60px;
+  }
+
+  .client-text {
+    max-width: 760px;
+    margin: 0 0 48px;
+    color: #444;
+  }
+
+  .client-text h1 {
+    font-size: 1.1rem;
+    line-height: 1.35;
+    margin: 0 0 22px;
+    color: #111;
+  }
+
+  .client-text p {
+    margin: 0 0 14px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  figure {
+    margin: 0;
+    position: relative;
+  }
+
+  .thumb-button {
+    display: block;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .thumb-button img {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    display: block;
+    background: #eee;
+  }
+
+  figcaption {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 0.75rem;
+    padding: 3px 6px;
+    border-radius: 3px;
+  }
+
+  .lightbox {
+    border: 0;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.94);
+    width: 95vw;
+    height: 95vh;
+    max-width: 95vw;
+    max-height: 95vh;
+  }
+
+  .lightbox::backdrop {
+    background: rgba(0, 0, 0, 0.84);
+  }
+
+  .lightbox-image {
+    max-width: 88vw;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 5vh auto 1rem;
+  }
+
+  .lightbox-caption {
+    color: white;
+    text-align: center;
+    font-size: 0.9rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    border: 0;
+    background: transparent;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 20;
+  }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 46px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 20;
+    backdrop-filter: blur(4px);
+  }
+
+  .lightbox-prev {
+    left: 18px;
+  }
+
+  .lightbox-next {
+    right: 18px;
+  }
+
+  .lightbox-nav:hover {
+    background: rgba(255, 255, 255, 0.28);
+  }
+
+  @media (max-width: 640px) {
+    .client-gallery {
+      padding: 120px 16px 40px;
+    }
+
+    .client-text {
+      margin-bottom: 32px;
+    }
+
+    .client-text h1 {
+      font-size: 1rem;
+    }
+
+    .client-text p {
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    .grid {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 14px;
+    }
+
+    .lightbox-image {
+      max-width: 84vw;
+      max-height: 72vh;
+      margin-top: 8vh;
+    }
+
+    .lightbox-nav {
+      width: 38px;
+      height: 38px;
+      font-size: 1rem;
+    }
+
+    .lightbox-prev {
+      left: 10px;
+    }
+
+    .lightbox-next {
+      right: 10px;
+    }
+  }
+</style>
