@@ -1,8 +1,6 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
-import PageSlideshow from "../components/PageSlideshow.astro";
-import Footer from "../components/Footer.astro";
+import Layout from "../../layouts/Layout.astro";
+import PageSlideshow from "../../components/PageSlideshow.astro";
 
 const images = [
   "/images/commercial/commercial-flyte-arc-01.jpg",
@@ -18,7 +16,6 @@ const images = [
 ---
 
 <Layout title="Commercial | Richard Lawrie Photography">
-  <Header />
   <PageSlideshow
     images={images}
     alt="Commercial photography by Richard Lawrie"
