@@ -1,0 +1,178 @@
+---
+const images = [
+  "/images/hero/hero-chamonix-drift-01.jpg",
+  "/images/hero/hero-chamonix-grandesjorasses-01.jpg",
+  "/images/hero/hero-chamonix-inversion-01.jpg",
+  "/images/hero/hero-fettercairn-sunset-01.jpg",
+  "/images/hero/hero-gotland-huts-01.jpg",
+  "/images/hero/hero-iceland-blacksand-01.jpg",
+  "/images/hero/hero-iceland-northernlights-01.jpg",
+  "/images/hero/hero-iceland-waterfall-01.jpg",
+  "/images/hero/hero-stonehaven-dunotter-01.jpg",
+  "/images/hero/hero-torino-refuge-01.jpg",
+];
+---
+
+<section class="hero" id="hero-slideshow">
+  <div class="slides">
+    {images.map((src, index) => (
+      <img
+        src={src}
+        alt="Photography by Richard Lawrie"
+        class={`slide ${index === 0 ? "active" : ""}`}
+      />
+    ))}
+  </div>
+
+  <button class="nav-button prev" type="button" aria-label="Previous image">
+    &#8592;
+  </button>
+
+  <button class="nav-button next" type="button" aria-label="Next image">
+    &#8594;
+  </button>
+</section>
+
+<script>
+  const hero = document.getElementById("hero-slideshow");
+
+  if (hero) {
+    const slides = hero.querySelectorAll("img.slide");
+    const prevButton = hero.querySelector(".prev");
+    const nextButton = hero.querySelector(".next");
+
+    if (slides.length > 1) {
+      let current = 0;
+      let intervalId;
+
+      const showSlide = (index) => {
+        slides[current].classList.remove("active");
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add("active");
+      };
+
+      const nextSlide = () => {
+        showSlide(current + 1);
+      };
+
+      const prevSlide = () => {
+        showSlide(current - 1);
+      };
+
+      const startSlideshow = () => {
+        intervalId = setInterval(nextSlide, 4000);
+      };
+
+      const restartSlideshow = () => {
+        clearInterval(intervalId);
+        startSlideshow();
+      };
+
+      nextButton?.addEventListener("click", () => {
+        nextSlide();
+        restartSlideshow();
+      });
+
+      prevButton?.addEventListener("click", () => {
+        prevSlide();
+        restartSlideshow();
+      });
+
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight") {
+          nextSlide();
+          restartSlideshow();
+        }
+
+        if (event.key === "ArrowLeft") {
+          prevSlide();
+          restartSlideshow();
+        }
+      });
+
+      startSlideshow();
+    }
+  }
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 72px);
+    margin-top: 72px;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .slides {
+    position: absolute;
+    inset: 0;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.4s ease-in-out;
+  }
+
+  .slide.active {
+    opacity: 1;
+  }
+
+  .nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.22);
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s ease, opacity 0.2s ease;
+    opacity: 0.7;
+  }
+
+  .nav-button:hover {
+    background: rgba(255, 255, 255, 0.32);
+    opacity: 1;
+  }
+
+  .prev {
+    left: 18px;
+  }
+
+  .next {
+    right: 18px;
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      height: calc(100vh - 86px);
+      margin-top: 86px;
+    }
+
+    .nav-button {
+      width: 40px;
+      height: 40px;
+      font-size: 1rem;
+    }
+
+    .prev {
+      left: 12px;
+    }
+
+    .next {
+      right: 12px;
+    }
+  }
+</style>

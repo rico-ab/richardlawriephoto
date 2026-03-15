@@ -1,0 +1,125 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Om | Richard Lawrie Photography">
+  <section class="about-page">
+    <div class="about-intro">
+      <h1>Om</h1>
+
+      <div class="about-text">
+        <p>
+          Richard Lawrie är fotograf baserad i Stockholm.
+        </p>
+
+        <p>
+          Intresset för fotografi tog fart i Chamonix 1999, med Fujifilm Velvia
+          diafilm och motiv från berg, skidåkning och alpina landskap. Den
+          känslan finns fortfarande kvar i bildspråket – ett intresse för ljus,
+          väder, miljöer och ögonblick som känns äkta.
+        </p>
+
+        <p>
+          I dag utförs det mesta av det kommersiella arbetet med en Nikon D850
+          och ett noggrant utvalt urval fasta objektiv. Men mellan varven får
+          även mellanformatkameran från Hasselblad komma fram.
+        </p>
+      </div>
+    </div>
+
+    <div class="about-images">
+      <figure class="about-figure">
+        <img
+          src="/images/about/about-richardlawrie-chamonix-01.jpg"
+          alt="Richard Lawrie i Chamonix"
+        />
+        <figcaption>Foto: Erland Hagen</figcaption>
+      </figure>
+
+      <figure class="about-figure">
+        <img
+          src="/images/about/about-richardlawrie-stockholm-01.jpg"
+          alt="Porträtt av Richard Lawrie"
+        />
+      </figure>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .about-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 40px 60px;
+  }
+
+  .about-intro {
+    max-width: 760px;
+    margin-bottom: 48px;
+  }
+
+  h1 {
+    margin: 0 0 28px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  .about-text p {
+    margin: 0 0 18px;
+    font-size: 0.98rem;
+    line-height: 1.75;
+    color: #222;
+    max-width: 720px;
+  }
+
+  .about-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .about-figure {
+    margin: 0;
+  }
+
+  .about-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .about-figure figcaption {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #666;
+  }
+
+  @media (max-width: 900px) {
+    .about-page {
+      padding: 110px 20px 40px;
+    }
+
+    .about-images {
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .about-page {
+      padding: 120px 16px 36px;
+    }
+
+    .about-images {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .about-text p {
+      font-size: 0.94rem;
+      line-height: 1.7;
+    }
+  }
+</style>

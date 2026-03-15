@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import PageSlideshow from "../components/PageSlideshow.astro";
+import Footer from "../components/Footer.astro";
+
+const images = [
+  "/images/commercial/commercial-flyte-arc-01.jpg",
+  "/images/commercial/commercial-flyte-arc-02.jpg",
+  "/images/commercial/commercial-flyte-story-01.jpg",
+  "/images/commercial/commercial-octon-archipelago-01.jpg",
+  "/images/commercial/commercial-petterssons-gjuteri-01.jpg",
+  "/images/commercial/commercial-petterssons-gjuteri-02.jpg",
+  "/images/commercial/commercial-petterssons-gjuteri-03.jpg",
+  "/images/commercial/commercial-tormek-t8-01.jpg",
+  "/images/commercial/commercial-whiskyboard-shoot-01.jpg",
+];
+---
+
+<Layout title="Commercial | Richard Lawrie Photography">
+  <Header />
+  <PageSlideshow
+    images={images}
+    alt="Commercial photography by Richard Lawrie"
+  />
+</Layout>

@@ -1,17 +1,44 @@
 ---
+import Layout from "../layouts/Layout.astro";
+import HeroSlideshow from "../components/HeroSlideshow.astro";
 
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Richard Lawrie Photography">
+ 
+  <HeroSlideshow />
+
+  <div class="print-note">
+  120×80cm prints on brushed aluminium currently on display at {" "} <a href="https://alpingaraget.se" target="_blank" rel="noopener noreferrer"> AlpinGaraget</a>,  
+  Birger Jarlsgatan 127, Stockholm.
+</div>
+
+  </Layout>
+
+<style>
+  .print-note{
+  display:flex;
+  align-items:center;
+
+  padding:18px 40px;
+
+  font-size:0.88rem;
+  line-height:1.6;
+
+  border-top:1px solid #eaeaea;
+
+  color:#333;
+
+  background:#ffffff;
+}
+
+.print-note a{
+  color:#111;
+  text-decoration:none;
+  border-bottom:1px solid rgba(0,0,0,0.2);
+}
+
+.print-note a:hover{
+  border-bottom:1px solid rgba(0,0,0,0.5);
+}
+</style>

@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import PortraitSlideshow from "../components/PortraitSlideshow.astro";
+import Footer from "../components/Footer.astro";
+
+const images = [
+  "/images/portrait/portrait-chamonix-elina-01.jpg",
+  "/images/portrait/portrait-chamonix-muffer-01.jpg",
+  "/images/portrait/portrait-chamonix-phillipe-01.jpg",
+  "/images/portrait/portrait-darktent-billswed-01.jpg",
+  "/images/portrait/portrait-gamlastan-family-01.jpg",
+  "/images/portrait/portrait-kenny-billswed-01.jpg",
+  "/images/portrait/portrait-magnus-bjorn-01.jpg",
+  "/images/portrait/portrait-simon-flyte-01.jpg",
+];
+---
+
+<Layout title="Portrait | Richard Lawrie Photography">
+  <Header />
+  <PortraitSlideshow
+    images={images}
+    alt="Portrait photography by Richard Lawrie"
+  />
+  </Layout>
